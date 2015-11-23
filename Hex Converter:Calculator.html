@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8" />
+    <title>SEN 949-1 Assignment 2</title>
+    <meta Name="Author" Content="Jingran Xue"/>
+    <style>
+            body {background-color:Ivory; font-family:Trebuchet MS;}
+            h1 {color: #484848;font-family:verdana; text-align:center;font-size:200%;}
+            h2 {color: #585858;font-family:verdana; text-align:center;font-size:150%;}
+            h3 {color: darkgray;font-family:verdana; text-align:center;font-size:100%;}
+            p {color: green;}
+            table, th, td {margin-left: 400px;border:none; border-collapse: collapse;}
+            td {padding:5px;}
+    </style>
+    <script>
+        /*<![CDATA[ */
+        var hexNum = 0;
+        var decNum = 0;
+        var num1 = 0;
+        var num2 = 0;
+        var addResult = 0;
+        var subResult = 0;
+        var mulResult = 0;
+        var msd = 0;
+        var divResult = 0;
+        var modResult = 0;
+        var hexToDecRadio = false;
+        var decToHexRadio = false;
+        var addRadio = false;
+        var subRadio = false;
+        var mulRadio = false;
+        var divRadio = false;
+        
+//Functions for part 1
+        function decToHex(){
+            if (!isNaN(document.part1.decnum.value)){
+                var decNum = document.part1.decnum.value;
+                var hexNum = Number(decNum).toString(16).toUpperCase();
+                document.part1.hexnum.value = hexNum;
+            }else {
+                window.alert("Please enter a valid decimal number!")
+            }
+        }
+        function hexToDec(){
+            if (hexChecker(document.part1.hexnum.value)){
+                hexNum = document.part1.hexnum.value;
+                decNum = parseInt(hexNum,16);
+                document.part1.decnum.value = decNum;
+            }
+        }
+        function decToHexOn(){
+            decToHexRadio = true;
+            hexToDecRadio = false;
+        }
+        function hexToDecOn(){
+            hexToDecRadio = true;
+            decToHexRadio = false;
+        }
+        function submit1(){
+            if (hexToDecRadio == true){
+                hexToDec();
+            }else if (decToHexRadio == true){
+                decToHex();
+            }else{
+            window.alert("Check One Option!")
+            }
+            
+        }
+        function clear1(){
+            document.part1.decnum.value = "";
+            document.part1.hexnum.value = "";
+        }
+        
+//Functions for part 2
+        function add(){
+            num1 = document.part2.num1.value;
+            num2 = document.part2.num2.value;
+            addResult = (parseInt(num1,16) + parseInt(num2,16)).toString(16).toUpperCase();
+            document.part2.result.value = addResult;
+            document.part2.fourthBox.value = "";
+        }
+        function sub(){
+            num1 = document.part2.num1.value;
+            num2 = document.part2.num2.value;
+            subResult = (parseInt(num1,16) - parseInt(num2,16)).toString(16).toUpperCase();
+            document.part2.result.value = subResult;
+            document.part2.fourthBox.value = "";
+        }
+        function mul(){
+            num1 = document.part2.num1.value;
+            num2 = document.part2.num2.value;
+            mulResult = (parseInt(num1,16) * parseInt(num2,16)).toString(16).toUpperCase();
+            document.part2.result.value = mulResult;
+            msd = mulResult.toString(16).slice(0,8);
+            document.part2.fourthBox.value = msd;
+        }
+        function div(){
+            num1 = document.part2.num1.value;
+            num2 = document.part2.num2.value;
+            divResult = (parseInt(num1,16) / parseInt(num2,16)).toString(16).toUpperCase();
+            modResult = (parseInt(num1,16) % parseInt(num2,16)).toString(16).toUpperCase();
+            document.part2.result.value = divResult;
+            document.part2.fourthBox.value = modResult;
+        }
+        function addOn(){
+            addRadio = true;
+            subRadio = false;
+            mulRadio = false;
+            divRadio = false;
+        }
+        function subOn(){
+            addRadio = false;
+            subRadio = true;
+            mulRadio = false;
+            divRadio = false;
+        }
+        function mulOn(){
+            addRadio = false;
+            subRadio = false;
+            mulRadio = true;
+            divRadio = false;
+        }
+        function divOn(){
+            addRadio = false;
+            subRadio = false;
+            mulRadio = false;
+            divRadio = true;
+        }
+        function submit2(){
+            if (hexChecker(num1)&&hexChecker(num2)){
+                if (addRadio == true){
+                    add();
+                }else if (subRadio == true){
+                    sub();
+                }else if (mulRadio == true){
+                    mul();
+                }else if (divRadio == true){
+                    div();
+                }else{
+                    window.alert("Please select an operation type!")
+                }
+            }
+        }
+        function clear2(){
+            document.part2.num1.value = "";
+            document.part2.num2.value = "";
+            document.part2.result.value = "";
+            document.part2.fourthBox.value = "";
+        }
+        function hexChecker(number){
+            if (number.length<1){
+                window.alert("Please enter a hex number!");
+                return false;
+            }
+            for (index=0;index<number.length;index++){
+                if (isNaN(parseInt(number.charAt(index),16))){
+                    window.alert("Please enter a valid hexadecimal number!");
+                    return false;
+                }
+            }return true;
+        }
+        /* ]] */
+    </script>
+</head>
+
+<body>
+<h1>SEN 949-1 Assignment 2--Hex Converter/Calculator </h1>
+<h3>Jingran Xue (StudentID: 87758)<br>
+Contact: rannie.xue@gmail.com
+</h3>
+<hr>
+<div>
+    <p>
+    <h2>8-digit Hex-Decimal Converter</h2>
+    <form action="" name="part1">
+        <table>
+            <tr>
+                <td>Hexadecimal</td>
+                <td>
+                    <input type="text" name="hexnum" style="background-color: #FFFF66; font-family: verdana;font-size: 120%; text-decoration:none; border-radius:5px 5px 5px 5px; height: 30px" maxlength="8" title="enter hexadecimal number, digits 0 to 9, A to F" />
+                </td>
+            </tr>
+            <tr>
+                <td>Decimal</td>
+                <td>
+                    <input type="text" name="decnum" style="background-color: #FFFF66; font-family: verdana;font-size: 120%; text-decoration:none; border-radius:5px 5px 5px 5px; height: 30px" maxlength="10" title="enter decimal number, digits 0 to 9"/>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td><input type="radio" name="hexDec" onchange="hexToDecOn()"/> Hex to Dec</td>
+                <td><input type="radio" name="hexDec" onchange ="decToHexOn()" />Dec to Hex<br></td>
+            </tr>
+        </table>
+        <br>
+        <table>
+            <tr>
+                <td>
+                    <input type="button" style="background-color: lightpink; font-family: verdana; color:#404040;text-decoration:none; border-radius:5px 5px 5px 5px; width:70px;height:30px" value="Submit" onclick="submit1()"/>
+                </td>
+                <td>
+                    <input type="button" style="background-color: lightpink; font-family: verdana; color:#404040;text-decoration:none; border-radius:5px 5px 5px 5px; width:70px;height:30px" value="Clear" onclick="clear1()"/>
+                </td>
+            </tr>
+        </table>
+        
+    </form>
+    </p>
+<hr>
+</div>
+<div>
+    <p>
+    <h2>32X32 bit Hex Calculator</h2> 
+    <form action="" name="part2">
+       
+        <table>
+            <tr>
+                <td>Number 1</td>
+                <td><input type="text" name="num1" style="background-color: #FFFF66; font-family: verdana;font-size: 120%; text-decoration:none; border-radius:5px 5px 5px 5px; height: 30px"maxlength="8" title="enter hexadecimal number, digits 0 to 9, A to F"/></td>
+            </tr>
+            <tr>
+                <td>Number 2</td>
+                <td><input type="text" name="num2" style="background-color: #FFFF66; font-family: verdana;font-size: 120%; text-decoration:none; border-radius:5px 5px 5px 5px; height: 30px"maxlength="8" title="enter hexadecimal number, digits 0 to 9, A to F"/></td>
+            </tr>
+            <tr>
+                <td>Result</td>
+                <td><input type="text" name="result" style="background-color: #FFFF66; font-family: verdana;font-size: 120%; text-decoration:none; border-radius:5px 5px 5px 5px; height: 30px" /></td>
+            </tr>
+            <tr>
+                <td>Most Significant Digits/Modulo</td>
+                <td><input type="text" name="fourthBox" style="background-color: #FFFF66; font-family: verdana;font-size: 120%; text-decoration:none; border-radius:5px 5px 5px 5px; height: 30px"/></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>
+                    <input type="radio" name="cal"  onchange ="addOn()"/>Addition
+                    <input type="radio" name="cal"  onchange ="subOn()"/>Subtraction
+                    <input type="radio" name="cal"  onchange ="mulOn()"/>Multiplication
+                    <input type="radio" name="cal"  onchange ="divOn()"/>Division
+                </td>
+            </tr>
+            
+        </table>
+        <br>
+        <table>
+            <tr>
+                <td>
+                    <input type="button" style="background-color: lightpink; font-family: verdana; color:#404040;text-decoration:none; border-radius:5px 5px 5px 5px; width:70px;height:30px" value="Submit" onclick="submit2()"/>
+                </td>
+                <td>
+                    <input type="button" style="background-color: lightpink; font-family: verdana; color:#404040;text-decoration:none; border-radius:5px 5px 5px 5px; width:70px;height:30px" value="Clear" onclick="clear2()"/>
+                </td>
+            </tr>
+        </table>
+        
+    </form>
+    </p>
+<hr>
+</div>
+<div style="text-align: center">
+    2015 &copy; Jingran Xue. All rights reserved
+</div>
+</body>
+</html>
