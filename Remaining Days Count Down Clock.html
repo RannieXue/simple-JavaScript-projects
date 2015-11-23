@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8" />
+    <title>SEN 949-1 Assignment 3</title>
+    <meta Name="Author" Content="Jingran Xue"/>
+    <style>
+            body {background-color:Ivory; font-family:Trebuchet MS;}
+            h1 {color: #484848;font-family:verdana; text-align:center;font-size:200%;}
+            h2 {color: #585858;font-family:verdana; text-align:center;font-size:150%;}
+            h3 {color: darkgray;font-family:verdana; text-align:center;font-size:100%;}
+            p {color: green;}
+            table, th, td {margin-left: 500px;border:none; border-collapse: collapse;}
+            td {padding:5px;}
+            #box {height:150px; width:400px; text-align: center; background-color: pink; border-radius: 5px 5px 5px 5px; margin:0 auto;}
+            .input{background-color: #FFFF66; font-family: verdana;font-size: 100%; text-decoration:none; border-radius:5px 5px 5px 5px; height: 30px; width:150px;}
+            #currentTime {font-size: 200%;}
+            h4{color: green; font-family: verdana;font-size: 150%; text-align: center;}
+            .button{background-color: lightpink; font-family: verdana; font-size: 100%; color:#404040;text-decoration:none; border-radius:5px 5px 5px 5px; width:70px;height:30px;}
+            .comment{font-size: 80%}
+    </style>
+    
+</head>
+
+<body>
+<h1>SEN 949-1 Assignment 3--Remaining Days Count Down Clock </h1>
+<h3>Jingran Xue (StudentID: 87758)<br>
+Contact: rannie.xue@gmail.com
+</h3>
+<hr>
+<div id="box">
+<br><P align="center"><b>Current Time:</b></P>
+<p id="currentTime" align="center"> </p>
+</div><br>
+
+<form action="" name="mainform">
+        <table>
+            <tr>
+                <td>Event Type</td>
+                <td>
+                    <select id="dateType" name="dateType" class="input" size="1">
+                        <option value="anniversary" >Anniversary</option>
+                        <option value="birthday">Birthday</option>
+                        <option value="meeting">Meeting</option>
+                        <option value="other event">Other Event</option>
+                    </select>
+                </td>
+                <td class="comment">Please select your date type.</td>
+            </tr>
+            <tr><td>Year</td>
+                <td><input id="year" type="text" name="inputyear" class="input" maxlength="4"/></td>
+                <td class="comment">Please enter event year (yyyy)</td>
+            </tr>
+            <tr><td>Month</td>
+                <td><select id="month" name="month" class="input" size="1">
+                        <option value="0" selected="selected">01-January</option>
+                        <option value="1">02-February</option>
+                        <option value="2">03-March</option>
+                        <option value="3">04-April</option>
+                        <option value="4">05-May</option>
+                        <option value="5">06-June</option>
+                        <option value="6">07-July</option>
+                        <option value="7">08-August</option>
+                        <option value="8">09-September</option>
+                        <option value="9">10-October</option>
+                        <option value="10">11-November</option>
+                        <option value="11">12-December</option>
+                    </select></td>
+                <td class="comment">Please select event month.</td>
+            </tr>
+            <tr><td>Day</td>
+                <td><input id="day" type="text" name="day" class="input" maxlength="2" /></td>
+                <td class="comment">Please enter a valid day of your selected month.</td>
+            </tr>
+            <tr><td>Hour (24)</td>
+                <td><input id="hour" type="text" name="hour" class="input" maxlength="2" /></td>
+                <td class="comment">Please enter a valid hour. (0-23)</td>
+            </tr>
+            <tr><td>Minute</td>
+                <td><input id="minute" type="text" name="minute" class="input" maxlength="2" /></td>
+                <td class="comment">Please enter a valid minute. (0-59)</td>
+            </tr>
+            <tr><td><input type="button" class="button" value="Update" onclick="display();"/></td>              
+                <td><input type="reset" class="button" value="Reset" /></td><td></td></tr>
+        </table>
+        <br>       
+    </form>
+
+<h4 id="showResult"></h4>
+
+    <script type="text/javascript" >
+        /*<![CDATA[ */
+        var current = new Date();
+        var cday = current.getDate();
+        var cmonth = current.getMonth();
+        var monthArray = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+        var cyear = current.getFullYear();
+        var chour = ("0"+current.getHours()).slice(-2);
+        var cminute = ("0"+current.getMinutes()).slice(-2);//display two digits
+        var now = monthArray[cmonth]+" "+cday+", "+cyear+ ", "+chour+":"+cminute;
+        document.getElementById("currentTime").innerHTML = now;
+            
+        function display(){
+            var t = document.getElementById("dateType");
+            var type = t.options[t.selectedIndex].value;
+            var y = document.getElementById("year").value;
+            var m = document.getElementById("month");
+            var month = m.options[m.selectedIndex].value;
+            var d = document.getElementById("day").value;
+            var h = document.getElementById("hour").value;
+            var mi = document.getElementById("minute").value;
+            
+            var newDate = new Date(y,month,d,h,mi).getTime();
+            var days, hours, minutes;
+            var second_left = (newDate - current)/1000;
+            var days = parseInt(second_left/86400);
+            var second_left = second_left % 86400;
+            var hours = parseInt(second_left /3600);
+            var second_left = second_left % 3600;
+            var minutes = parseInt(second_left/60);
+            
+            var maxDay = new Date(y, month, 0).getDate();
+            
+            
+            if (d>maxDay){
+                window.alert("Please enter a valid day number of your selected month!");
+            }else {
+                if (h<0 || h>23){
+                    window.alert("Please enter a valid hour number between 0 and 23!");
+                }else {
+                    if (mi<0 || mi>59){
+                        window.alert("Please enter a valid minute number between 0 and 59");
+                    }else {
+                        if (newDate < current){
+                                document.getElementById("showResult").innerHTML = "It is already "+Math.abs(days) +" day(s), "+Math.abs(hours)+" hour(s), "+Math.abs(minutes)+" minute(s) since the "+type+".";
+                        }else{
+                                document.getElementById("showResult").innerHTML = "The "+type+" is "+days +" day(s), "+hours+" hour(s), "+minutes+" mimute(s) remaining!";
+                        }
+                    }
+                }
+            }
+
+        }
+        
+       
+        /* ]] */
+    </script>
+*Internet Explorer might not support some functions in this website, please choose other explorers (Chrome is recommended).</br>
+<br><div style="text-align: center">
+    2015 &copy; Jingran Xue. All rights reserved
+</div>
+</body>
+</html>
