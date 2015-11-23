@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>SEN 949-1 Mid-Term</title>
+    <meta name="Author" content="Jingran Xue">
+    <style>
+            body {background-color:Ivory; font-family:Trebuchet MS;}
+            h1 {color: #484848;font-family:verdana; text-align:center;font-size:200%;}
+            h2 {color: #585858;font-family:verdana; text-align:center;font-size:150%;}
+            h3 {color: darkgray;font-family:verdana; text-align:center;font-size:100%;}
+            p {color: green;}
+            table, th, td {margin: 0 auto;border:none; border-collapse: collapse;}
+            td {padding:5px;}
+            #box {height:150px; width:400px; text-align: center; background-color: pink; border-radius: 5px 5px 5px 5px; margin:0 auto;}
+            .input{background-color: #FFFF66; font-family: verdana;font-size: 100%; text-decoration:none; border-radius:5px 5px 5px 5px; height: 30px; width:150px;}
+            #currentTime {font-size: 200%;}
+            h4{color: green; font-family: verdana;font-size: 100%; text-align: center;}
+            .button{background-color: lightpink; font-family: verdana; font-size: 100%; color:#404040;text-decoration:none; border-radius:5px 5px 5px 5px; width:70px;height:30px;}
+            .comment{font-size: 80%}
+    </style>
+    
+</head>
+
+<body>
+<h1>SEN 949-1 Mid-Term--Triangle Area </h1>
+<h3>Jingran Xue (StudentID: 87758)<br>
+Contact: rannie.xue@gmail.com
+</h3>
+<hr>
+<p style="text-align: center">Please enter properties of your triangle:</p>
+
+<form action="" name="mainform">
+    <table>
+        <tbody><tr>
+            <td>Length 1</td>
+            <td><input type="text" class="input" id="a" name="a"></td>
+        </tr>
+        <tr>
+            <td>Length 2</td>
+            <td><input type="text" class="input" id="b" name="b"></td>
+        </tr>
+        <tr>
+            <td>Length 3</td>
+            <td><input type="text" class="input" id="c" name="c"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="button" class="button" value="Submit" onclick="display();"></td>
+        </tr>
+    </tbody></table>
+</form>
+
+<h4 id="showResult"></h4>
+
+    <script type="text/javascript">
+        /*<![CDATA[ */
+        //var lengthOne = document.getElementById("a").value;
+        //var lengthTwo = document.getElementById("b").value;
+        //var lengthThree = document.getElementById("c").value;
+   
+        function display(){
+            var lengthOne = parseInt(document.getElementById("a").value);
+            var lengthTwo = parseInt(document.getElementById("b").value);
+            var lengthThree = parseInt(document.getElementById("c").value);
+            
+            var para = (lengthOne+lengthTwo+lengthThree)/2;
+            var para2 = para*(para-lengthOne)*(para-lengthTwo)*(para-lengthThree);
+
+            var area = Math.round(Math.sqrt(para2),2);
+
+            var sq1 = lengthOne*lengthOne;
+            var sq2 = lengthTwo*lengthTwo;
+            var sq3 = lengthThree*lengthThree;
+            
+            
+            if (area > 0){
+                if (lengthOne === lengthTwo || lengthTwo === lengthThree || length){
+                    if (lengthOne === lengthTwo && lengthOne === lengthThree){
+                        document.getElementById("showResult").innerHTML = "The sides "+lengthOne+", "+lengthTwo+" and "+lengthThree+" form a(n) "+" equilateral triangle, and the area is "+area+" square units.";
+                    }else if (((sq1+sq2)===sq3)||((sq1+sq3)===sq2)||((sq2+sq3)===sq1)){
+                        document.getElementById("showResult").innerHTML = "The sides "+lengthOne+", "+lengthTwo+" and "+lengthThree+" form a(n) "+" isosceles and right angle triangle, and the area is "+area+" square units.";
+                    }else {
+                        document.getElementById("showResult").innerHTML = "The sides "+lengthOne+", "+lengthTwo+" and "+lengthThree+" form a(n) "+" isosceles triangle, and the area is "+area+" square units.";
+                    }
+                }else{
+                    if (((sq1+sq2)===sq3)||((sq1+sq3)===sq2)||((sq2+sq3)===sq1)){
+                        document.getElementById("showResult").innerHTML = "The sides "+lengthOne+", "+lengthTwo+" and "+lengthThree+" form a(n) "+" right angle triangle, and the area is "+area+" square units.";
+                    }else {
+                        document.getElementById("showResult").innerHTML = "The sides "+lengthOne+", "+lengthTwo+" and "+lengthThree+" form a(n) "+" regular triangle, and the area is "+area+" square units.";
+                    }                   
+                }
+            }else {window.alert("Please enter a valid set of triangle properties! The sum of any two lengths should be greater than the third length.");}
+        }
+       
+        /* ]] */
+    </script>
+
+<br><div style="text-align: center">
+    2015 © Jingran Xue. All rights reserved
+</div>
+
+
+</body></html>
